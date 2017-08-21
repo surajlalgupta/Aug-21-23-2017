@@ -1,0 +1,11 @@
+Create Lab02.html file.
+You will display the following cities in a list.
+
+Chennai
+Mumbai
+Bengaluru
+Pune
+
+Now! You will store these cities in an array and display them as a list dynamically. :)
+
+Hint: Construct an Array of JSX elements
