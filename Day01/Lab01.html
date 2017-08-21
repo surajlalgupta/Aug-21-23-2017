@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script src="babel.js"></script>
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+        <style>
+            .correct{
+                color: green;
+            }
+            .incorrect{
+                color:red;
+            }
+        </style>
+    </head> 
+    <body>
+        <div id="root"></div>
+        <br/>
+        <div id="message"></div>
+        <script type="text/jsx">
+            function authenticate(){
+                var userName = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                if(userName == "admin" && password == "admin"){
+                    ReactDOM.render(<h1 className="correct">Logging in...</h1>,document.getElementById("message"))
+                }
+                else{
+                    ReactDOM.render(<h1 className="incorrect">Invalid Credentials</h1>,document.getElementById("message"))
+                }
+            }
+            var loginComp = (
+                <div>
+                    <input type="text" placeholder="User name" id="username"></input><br/>
+                    <input type="password" placeholder="Password" id="password"></input><br/>
+                    <button type="button" onClick={authenticate}>Login</button>
+            </div>
+            );
+            ReactDOM.render(loginComp,document.getElementById("root"));
+        </script>
+    </body>
+</html>    
