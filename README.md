@@ -41,7 +41,7 @@
 
 + Controlled Components
 + Uncontrolled Components
-+ <input> 
++ &lt;input&gt; 
 + <select> <option>
 
 
