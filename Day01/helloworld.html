@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <script src="babel.js"></script>
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+    </head> 
+    <body>
+        <div id="root"></div>
+        <div id="message"></div>
+        <script type="text/jsx">
+            function doSomething(){
+                console.log("Button clicked")
+            }
+            let hello = <h1>Hello React</h1>;
+            let btn = <button type="button" onClick={doSomething}>Click</button>
+           
+           ReactDOM.render(btn,document.getElementById("root")) 
+ReactDOM.render(hello,document.getElementById("message"))    
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script src="babel.js"></script>
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+    </head> 
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+            //Well formed
+            var textBoxes = (<div>
+                    <input type="text"></input><br/>
+                    <input type="text"></input>
+            </div>)
+            
+            var message = <h1>{ new Date().toString() }</h1>
+                
+            var tb = <input type="text"></input>
+            var btn = <input type="button" value="Click"></input>
+            ReactDOM.render(message,document.getElementById("root"))
+                
+        </script>
+    </body>
+</html>    
