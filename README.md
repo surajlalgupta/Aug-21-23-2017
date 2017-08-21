@@ -42,14 +42,13 @@
 + Controlled Components
 + Uncontrolled Components
 + &lt;input&gt; 
-+ <select> <option>
++ &lt;select&gt; &lt;option&gt;
 
+/
 
 + One-way Data binding
 + Two-Way Data Binding
 + ReactLink
-
-		
 + Build using Grunt
 + Mocha.js and Karma.js
 + TestUtilities
@@ -57,6 +56,8 @@
 + React.js Best Practices
 + Server DOM
 + Bundling React Applications
+
+/
 
 + Introduction to React Native
 + React Native Architecture
