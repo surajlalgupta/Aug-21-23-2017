@@ -7,7 +7,6 @@
 /
 
 + JavaScript and DOM you need to know (To be discussed based on your knowledge in JS)
-
 + JavaScript language
 + Functions- Higher-Order
 + arguments
