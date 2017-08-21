@@ -7,17 +7,22 @@
     <body>
         <div id="root"></div>
         <script type="text/jsx">
+            function doSomething(){
+                var name = document.getElementById("name").value
+                console.log("Name is ",name)
+            }
             //Well formed
             var textBoxes = (<div>
+                    <input type="text" id="name" placeholder="Name"></input><br/>
                     <input type="text"></input><br/>
-                    <input type="text"></input>
+                    <button type="button" onClick={doSomething}>Click</button>
             </div>)
             
             var message = <h1>{ new Date().toString() }</h1>
                 
             var tb = <input type="text"></input>
-            var btn = <input type="button" value="Click" onClick={}></input>
-            ReactDOM.render(message,document.getElementById("root"))
+            var btn = <input type="button" value="Click" ></input>
+            ReactDOM.render(textBoxes,document.getElementById("root"))
                 
         </script>
     </body>
