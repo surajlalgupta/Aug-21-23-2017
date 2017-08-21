@@ -1,0 +1,10 @@
+Let's practice writing some OO code in JS (ES 2017).
+Create Lab03.js file. Implement the following and run it using NodeJS.
+
+Create a class called Account with the following.
+1) It has a balance that needs to be initialized with a value greater than 10000
+2) Methods to deposit, withdraw. If there isn't sufficient balance don't allow withdraw.
+3) You can withdraw only 3 times. After that you will be charged 0.5% of the amount as Fees.
+4) Method to print the statement. The statement shows the date, type of transaction(Deposit, Withdraw, Fees ...etc) and amount
+5) Create an object of Account(20000) and call deposit twice and withdraw 5-6 times. Print the statement and Balance finally 
+
