@@ -38,7 +38,9 @@
                     this.state = {
                         game: new Game(),
                         message: "",
-                        attempts: ""
+                        attempts: "",
+                        msgColor: "",
+                        dummy: ""
                     }
                     this.playButtonClicked = this.playButtonClicked.bind(this)
                 }
@@ -46,16 +48,21 @@
                     let guess = this.guessTB.value.trim()
                     let game = this.state.game
                     game.play(guess)
+                    let msgColor = "red"
+                    if(game.message == "Aim Higher")
+                        msgColor = "green"
                     this.setState({
                         attempts: `Attempts: ${game.attempts}`,
-                        message: game.message
+                        message: game.message,
+                        msgColor
                     })
                 }
                 getGameHistory(){
                     let rows = []
                     let gameHistory = this.state.game.gameHistory
                     for(var i=0;i < gameHistory.length;i++){
-                        let row = (<tr>
+                        let key = "guess_" + i
+                        let row = (<tr key={key}>
                                 <td>{gameHistory[i].attempts}</td>
                                 <td>{gameHistory[i].guess}</td>
                         </tr>)
@@ -70,7 +77,7 @@
                             <input type="text" placeholder="Enter your guess" ref={ip => this.guessTB = ip}></input>
                             <button type="button" onClick={this.playButtonClicked}>Play</button>
                             <h1>{this.state.attempts}</h1>
-                            <h1>{this.state.message}</h1>
+                            <h1 className=`col-md-12 col-sm-12 ${this.state.dummy}` style={{color:`${this.state.msgColor}`,fontSize:"18px",backgroundColor:"white",fontFamily:"Arial Sans-Serif"}}>{this.state.message}</h1>
                             {
                                 this.state.game.gameOver ?
                                     <table>
