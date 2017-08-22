@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <script src="babel.js"></script>
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+            class Main extends React.Component{
+                constructor(props){
+                    super(props)
+                    this.state = {
+                        previousMessage: "",
+                        message: "Loading ..."
+                    }
+                    this.buttonClicked = this.buttonClicked.bind(this)
+                }
+                buttonClicked(){
+                    let previousMessage = this.state.message
+                    let name = this.nameTB.value.trim()
+                    this.setState({
+                        message: `Hi ${name}`,
+                        previousMessage
+                    })
+                }
+                shouldComponentUpdate(){
+                    //DETERMINES WHETHER YOU WANT TO RENDER OR NOT
+                    if(this.state.previousMessage == this.state.message)
+                        return false;
+                    return true
+                }
+                componentDidUpdate(){
+                    //CALLED WHENEVER VIRTUAL DOM IS UPDATED
+                    //CALLED AFTER render IS CALLED
+                    console.log("***componentDidUpdate called")
+                }
+                componentWillMount(){
+                    //CALLED BEFORE THE FIRST RENDER
+                    console.log("***componentWillMount called")
+                }
+                componentDidMount(){
+                    //CALLED ONLY ONCE
+                    //AFTER THE USER SEES SOME UI
+                    //YOU CAN SEND AN AJAX REQUEST TO THE SERVER 
+                    //AND COLLECT DATA
+                    console.log("***componentDidMount called")
+                    let self = this
+                    setTimeout(function(){
+                        self.setState({
+                            message: "Huh!!!Enter something"
+                        })
+                    },3000)
+                    
+                }
+                render(){
+                    console.log("***render called")
+                    return (
+                        <div>
+                            <input type="text" ref={ip => this.nameTB = ip}></input>
+                            <button type="button" onClick={this.buttonClicked}>Click</button>
+                            <h1>{this.state.message}</h1>
+                        </div>
+                    );
+                }
+            }
+            ReactDOM.render(<Main/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
