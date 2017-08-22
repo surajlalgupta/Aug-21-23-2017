@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <script src="babel.js"></script>
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+            class Main extends React.Component{
+                constructor(props){
+                    super(props)
+                    this.nameBlur = this.nameBlur.bind(this)
+                    this.buttonClicked = this.buttonClicked.bind(this)
+                    this.state = {
+                        name: "",
+                        message: ""
+                    }
+                }
+                buttonClicked(e){
+                    console.log(e.target)
+                    let message = `Hello ${this.state.name}`
+                    this.setState({
+                        message
+                    })
+                }
+                nameBlur(e){
+                    console.log(e.target)
+                    let name = e.target.value.trim()
+                    this.setState({ name })
+                }
+                render(){
+                    return (
+                        <div>
+                            <input type="text" onBlur={this.nameBlur}></input>
+                            <button type="button" onClick={this.buttonClicked}>Click</button>
+                            <h1>{this.state.message}</h1>
+                        </div>
+                    );
+                }
+            }
+            ReactDOM.render(<Main/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
