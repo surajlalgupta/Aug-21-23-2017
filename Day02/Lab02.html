@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <script src="babel.js"></script>
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+            class Main extends React.Component{
+                constructor(props){
+                    super(props)
+                    this.state = {
+                        countries: [],
+                        countrySelected: "--SELECT--"
+                    }
+                    this.countryChanged = this.countryChanged.bind(this)
+                    this.clearButtonClicked = this.clearButtonClicked.bind(this)
+                }
+                clearButtonClicked(){
+                    this.setState({
+                        countrySelected: "--SELECT--"
+                    })
+                    this.countriesDWN.value = "--SELECT--"
+                }
+                
+                componentDidMount(){
+                    //ASSUMING LOADING THE COUNTRIES FROM SERVER
+                    this.setState({
+                        countries: ["India","USA","UK"]
+                    })
+                }
+                countryChanged(e){
+                    let countrySelected = e.target.value
+                    this.setState({
+                        countrySelected
+                    })
+                    //REQUEST TO THE SERVER HERE AND FETCH THE CITIES
+                }
+                getCountries(){
+                    let countriesInJSX = []
+                    countriesInJSX.push(<option key="select">--SELECT--</option>)
+                    for(var i=0; i<this.state.countries.length;i++){
+                        let key = "country_" + i
+                        countriesInJSX.push(<option key={key}>{this.state.countries[i]}</option>)
+                    }
+                    return countriesInJSX
+                }
+                getCities(){
+                    let country = this.state.countrySelected 
+                    let citiesInJSX = []
+                    
+                    if(country == "India"){
+                        citiesInJSX.push(<option key="chennai">Chennai</option>)
+                        citiesInJSX.push(<option key="mumbai">Mumbai</option>)
+                        citiesInJSX.push(<option key="pune">Pune</option>)
+                    }
+                    else if(country == "USA"){
+                        citiesInJSX.push(<option key="ny">NY</option>)
+                        citiesInJSX.push(<option key="nj">NJ</option>)
+                        citiesInJSX.push(<option key="houston">Houston</option>)
+                    }
+                    else if(country == "UK"){
+                        citiesInJSX.push(<option key="london">London</option>)
+                        citiesInJSX.push(<option key="bristol">Bristol</option>)
+                        citiesInJSX.push(<option key="hampshire">Hampshire</option>)
+                    }
+                    return citiesInJSX
+                }
+                render(){
+                    return(
+                        <div>
+                            <label>Country</label>
+                            <select onChange={this.countryChanged} ref={ip => this.countriesDWN = ip}>{this.getCountries()}</select>
+                            <br/>
+                            <label>City</label>
+                            <select>{this.getCities()}</select>
+                            <br/>
+                            <button type="button" onClick={this.clearButtonClicked}>Clear ALL</button>
+                        </div>
+                    );
+                }
+            }
+            ReactDOM.render(<Main/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
