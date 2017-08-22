@@ -12,9 +12,10 @@
                     super(props)
                     this.state = {
                         previousMessage: "",
-                        message: "Loading ..."
+                        message: ""
                     }
                     this.buttonClicked = this.buttonClicked.bind(this)
+                    console.log("***constructor called")
                 }
                 buttonClicked(){
                     let previousMessage = this.state.message
@@ -38,6 +39,9 @@
                 componentWillMount(){
                     //CALLED BEFORE THE FIRST RENDER
                     console.log("***componentWillMount called")
+                    this.setState({
+                        message: "Loading ..."
+                    })
                 }
                 componentDidMount(){
                     //CALLED ONLY ONCE
