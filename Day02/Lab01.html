@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <script src="babel.js"></script>
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+            class Game{
+                constructor(){
+                    this.target = Math.floor(Math.random()*100)
+                    this.attempts = 0
+                    this.message = ""
+                }
+                play(guess){
+                    this.attempts += 1
+                    if(guess > this.target)
+                        this.message = "Aim Lower"
+                    else if(guess < this.target)
+                        this.message = "Aim Higher"
+                    else{
+                        this.message = "You've got it!!!"
+                    }
+                }
+            }
+            class GameComponent extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {
+                        game: new Game(),
+                        message: "",
+                        attempts: ""
+                    }
+                    this.playButtonClicked = this.playButtonClicked.bind(this)
+                }
+                playButtonClicked(){
+                    let guess = this.guessTB.value.trim()
+                    let game = this.state.game
+                    game.play(guess)
+                    this.setState({
+                        attempts: `Attempts: ${game.attempts}`,
+                        message: game.message
+                    })
+                }
+                render(){
+                    return(
+                        <div>
+                            <h1>Welcome to the Guessing Game. Enter a number between 1 and 100</h1>
+                            <input type="text" placeholder="Enter your guess" ref={ip => this.guessTB = ip}></input>
+                            <button type="button" onClick={this.playButtonClicked}>Play</button>
+                            <h1>{this.state.attempts}</h1>
+                            <h1>{this.state.message}</h1>
+                        </div>
+                    );
+                }
+            }
+ReactDOM.render(<GameComponent/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
