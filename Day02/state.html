@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <script src="babel.js"></script>
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+            class Main extends React.Component{
+                constructor(props){
+                    super(props)
+                    this.state = {
+                        a: "12",
+                        b: 2,
+                        message: "Hey! Please enter your name" 
+                    }
+                    //VERY IMPORTANT BUT VERY WEIRD SYNTAX
+                    this.buttonClicked = this.buttonClicked.bind(this)
+                }
+                buttonClicked(){
+                    let name = this.nameTB.value
+                    let msg = `Hi ${name}!!!`
+                    //this.state.message = msg 
+                    
+                    //VIRTUAL DOM IS RE-RENDERED
+                    //document.getElementById("message").innerText = msg
+                    this.setState({
+                        message: msg,
+                        a: 14
+                    })
+                    //this.clickBTN.disabled = true
+                }
+                render(){
+                    console.log("**RENDER called")
+                      //NEVER CALL setState inside render()
+//                    this.setState({
+//                        message : ""
+//                    })
+                    return (
+                        <div>
+                            <input type="text" ref={tb => this.nameTB = tb}></input>
+                            <button type="button" onClick=  {this.buttonClicked} ref={btn => this.clickBTN = btn}>Click</button>
+                            <h1>{this.state.message}</h1>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<Main/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
