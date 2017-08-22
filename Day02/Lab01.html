@@ -12,16 +12,24 @@
                     this.target = Math.floor(Math.random()*100)
                     this.attempts = 0
                     this.message = ""
+                    this.gameOver = false
+                    this.gameHistory = []
+                    console.log(this.target)
                 }
                 play(guess){
                     this.attempts += 1
+                    var attempts = this.attempts 
                     if(guess > this.target)
                         this.message = "Aim Lower"
                     else if(guess < this.target)
                         this.message = "Aim Higher"
                     else{
                         this.message = "You've got it!!!"
+                        this.gameOver = true
                     }
+                    this.gameHistory.push({
+                        attempts, guess  
+                    })
                 }
             }
             class GameComponent extends React.Component{
@@ -43,6 +51,18 @@
                         message: game.message
                     })
                 }
+                getGameHistory(){
+                    let rows = []
+                    let gameHistory = this.state.game.gameHistory
+                    for(var i=0;i < gameHistory.length;i++){
+                        let row = (<tr>
+                                <td>{gameHistory[i].attempts}</td>
+                                <td>{gameHistory[i].guess}</td>
+                        </tr>)
+                        rows.push(row)
+                    }
+                    return rows
+                }
                 render(){
                     return(
                         <div>
@@ -51,6 +71,22 @@
                             <button type="button" onClick={this.playButtonClicked}>Play</button>
                             <h1>{this.state.attempts}</h1>
                             <h1>{this.state.message}</h1>
+                            {
+                                this.state.game.gameOver ?
+                                    <table>
+                                       <thead>
+                                           <tr>
+                                               <th>Attempt</th>
+                                               <th>Guess</th>
+                                           </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.getGameHistory()}
+                                        </tbody>
+                                    </table>
+                                :
+                                <span/>
+                            }
                         </div>
                     );
                 }
