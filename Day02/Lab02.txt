@@ -1,0 +1,11 @@
+-> Create Lab02.html file. 
+-> Have two dropdown lists. 
+-> The first list will have the following countries populated dynamically. 
+India, US, UK
+-> When you select a country the second dropdown list will get populated with the cities of that country.
+-> You can use the following cities for convenience.
+India -> Pune, Chennai, Kochi
+US -> NJ, NY, Houston
+UK -> London, Bristol, Hampshire
+
+-> Have a "Clear All" button. When you click the button the cities list will get cleared and the country list selection will move to default ie., --SELECT--
