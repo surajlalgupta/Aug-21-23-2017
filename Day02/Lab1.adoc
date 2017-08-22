@@ -19,7 +19,8 @@ Have a look at the screenshot below. +
 * image:03.png[]
 * image:04.png[]
 * image:05.png[]
-* image:06.png[]
-* image:07.png[]
+
+* When you guess the number correct, display a message "You've got it!!!"
+
 * Don't worry too much about the look and feel of the page
 * Don't give up.
