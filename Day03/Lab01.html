@@ -1,0 +1,143 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+        <script src="babel.js"></script>
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+    </head>
+    <body>
+        <div class="container" id="root"></div>
+        <script type="text/jsx">
+            class PersonForm extends React.Component{
+                constructor(props){
+                    super(props)
+                    this.addButtonClicked = this.addButtonClicked.bind(this)
+                }
+                addButtonClicked(){
+                    let name = this.nameTB.value.trim()
+                    let age = this.ageTB.value.trim()
+                    let alreadyPresent = this.props.addHandler(name,age)
+                }
+                render(){
+                    return(
+                        <div className="form-group">
+                            <input type="text" className="form-control" placeholder="Name" ref={ip => this.nameTB = ip}/>
+                            <br/>
+                            <input type="number" placeholder="Age"  className="form-control" ref={ip => this.ageTB = ip}/>
+                            <br/>
+                            <button type="button" className="btn" onClick={this.addButtonClicked}>Add</button>
+                            <h2 style={{color:"red"}}>{this.props.message}</h2>
+                        </div>
+                    )
+                }
+            }
+            class PersonDisplay extends React.Component{
+                constructor(props){
+                    super(props)
+                }
+                checkboxChanged(key,e){
+                    let checked = e.target.checked
+                    this.props.personChecked(key,checked)
+                }
+                constructRows(){
+                    let persons = this.props.persons
+                    let rows = []
+                    for(var i=0;i<persons.length;i++){
+                        let key = "person_" + persons[i].name
+                        let tr = (<tr key={key}>
+                            <td>{persons[i].name}</td>
+                            <td>{persons[i].age}</td>
+                            <td><input type="checkbox" onChange={this.checkboxChanged.bind(this,key)}></input></td>
+                        </tr>)
+                        rows.push(tr)
+                    }
+                    return rows
+                }
+                render(){
+                    return(
+                        <table className="table" style={{border:"1px solid"}}>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Select</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.constructRows()}
+                            </tbody>
+                        </table>
+                    )
+                }
+            }
+            class Main extends React.Component{
+                constructor(props){
+                    super(props)
+                    this.state = {
+                        persons: [],
+                        message: ""
+                    }
+                    this.addPerson = this.addPerson.bind(this)
+                    this.markPerson = this.markPerson.bind(this)
+                    this.removePerson = this.removePerson.bind(this)
+                }
+                removePerson(){
+                    let persons = this.state.persons
+                    persons = persons.filter(it => it.markForRemoval == false)
+                    this.setState({
+                        persons
+                    })
+                }
+                markPerson(key,checked){
+                    let name = key.split("_")[1]
+                    let persons = this.state.persons
+                    let personToMark = persons.find(it => it.name == name)
+                    personToMark.markForRemoval = checked
+                    this.setState({
+                        persons
+                    })
+                }
+                addPerson(name,age){
+                    let persons = this.state.persons
+                    /*persons.find(function(it){
+                        return it.name == name
+                    })*/
+                    let personAlreadyPresent = persons.find(it => it.name == name)
+                    if(!personAlreadyPresent){
+                        persons.push({ name,age,markForRemoval:false })
+                        this.setState({
+                            persons,
+                            message:""
+                        })    
+                    }
+                    else{
+                        this.setState({
+                            message:"Person Already present"
+                        })
+                    }
+                }
+                render(){
+                    return (<div className="root">
+                        <PersonForm message={this.state.message} addHandler={this.addPerson}/>
+                        <hr/>
+                        {
+                                this.state.persons.length > 0 ?
+                                <div>
+                                    <PersonDisplay persons={this.state.persons} personChecked={this.markPerson}/>
+                                    <button type="button" className="btn" onClick={this.removePerson}>Remove</button>    
+                                </div>        
+                                :
+                                <span/>
+                        }
+                            
+                    </div>)
+                }
+            }
+
+
+            ReactDOM.render(<Main/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
