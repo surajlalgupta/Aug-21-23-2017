@@ -15,7 +15,9 @@
                 buttonClicked(){
                     let name = this.nameTB.value.trim()
                     let message = `Hey ${name}!`
+                    console.log(this)
                     this.props.handler(message)
+                    console.log("2")
                 }
                 render(){
                     return (<div>
@@ -43,6 +45,7 @@
                     this.processMessage = this.processMessage.bind(this)
                 }
                 processMessage(message){
+                    console.log(this)
                     this.setState({message})
                 }
                 render(){
